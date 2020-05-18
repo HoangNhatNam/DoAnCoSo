@@ -1,0 +1,82 @@
+﻿@model Models.Framework.User
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card-body">
+	<div class="col-lg-8 mx-auto">
+		<!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19.-->
+
+		<table>
+			<tr>
+				<td height="20px"></td>
+			</tr>
+			<tr>
+				<td>
+					<label><b>Chọn phòng</b></label>
+				</td>
+				<td>
+					<div class="dropdown ">
+						<div class="dropdown-toggle" data-toggle="dropdown">
+							<strong>Dropdown Menu</strong>
+						</div>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="#">Menu 1</a>
+							<a class="dropdown-item" href="#">Menu item 2</a>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label><b>Chọn danh mục yêu cầu</b></label>
+				</td>
+				<td>
+					<div class="dropdown ">
+						<div class="dropdown-toggle" data-toggle="dropdown">
+							<strong>Dropdown Menu</strong>
+						</div>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="#">Menu 1</a>
+							<a class="dropdown-item" href="#">Menu item 2</a>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label><b>Yêu cầu thêm</b></label>
+				</td>
+				<td>
+					<textarea cols="22" rows="8"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label><b>Yêu cầu đã gửi</b></label>
+				</td>
+				<td>
+					<div class="dropdown ">
+						<div class="dropdown-toggle" data-toggle="dropdown">
+							<strong>Dropdown Menu</strong>
+						</div>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="#">Menu 1</a>
+							<a class="dropdown-item" href="#">Menu item 2</a>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<button class="btn btn-primary" id="sendMessageButton" type="submit">Gửi</button>
+				</td>
+				<td>
+					<button class="btn btn-primary" id="sendMessageButton" type="submit">Hủy</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+

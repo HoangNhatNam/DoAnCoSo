@@ -1,0 +1,80 @@
+﻿@model PagedList.IPagedList<Models.Framework.ChucNangPhanMem>
+@using PagedList.Mvc;
+@{
+				/**/
+
+				ViewBag.Title = "Index";
+				Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+	Danh sách chức năng
+}
+@using (Html.BeginForm("Index", "ChucNang", FormMethod.Get))
+{
+	<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+		<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+			<div class="input-group">
+				<input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" name="searchString" value="@ViewBag.SearchString">
+				<div class="input-group-append">
+					<button class="btn btn-primary" type="submit">
+						<i class="fas fa-search fa-sm"></i>
+					</button>
+				</div>
+			</div>
+		</form>
+
+
+	</nav>
+}
+
+<div class="card shadow mb-4">
+	<div class="card-body">
+		<div class="table-responsive">
+
+			<div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-bordered dataTable" width="100" cellpadding="0" role="grid" style="width: 100%;">
+							<thead>
+								<tr>
+
+									<th>Tên chức năng</th>
+									<th>key</th>
+									<th>#</th>
+								</tr>
+							</thead>
+							<tbody>
+							<tbody>
+
+								@foreach (var item in Model)
+								{
+									<tr id="row_@item.ChucNangID" role="row" class="old">
+
+										<td>@item.TenChucNang</td>
+										<td>@item.TenTrang</td>
+										<td>
+											@Ajax.ActionLink("Xóa", "Delete",new { @id = item.ChucNangID}, new AjaxOptions
+									   {
+										   Confirm = "Bạn có muốn xóa bản ghi này?",
+										   OnComplete= "$('#row_" + @item.ChucNangID + "').remote()",
+										   HttpMethod = "Delete"
+
+									   })
+										</td>
+									</tr>
+								}
+
+
+
+
+							</tbody>
+						</table>
+						@Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = ViewBag.SearchString }))
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

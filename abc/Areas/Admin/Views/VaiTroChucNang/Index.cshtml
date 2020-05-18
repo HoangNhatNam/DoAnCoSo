@@ -1,0 +1,133 @@
+﻿@model PagedList.IPagedList<Models.ViewModel.VaiTroChucNangViewModel>
+@using PagedList.Mvc;
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+	Danh sách vai trò - chức năng
+}
+@using (Html.BeginForm("Index", "VaiTroChucNang", FormMethod.Get))
+{
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+	<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+		<div class="input-group">
+			<input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" name="searchString" value="@ViewBag.SearchString">
+			<div class="input-group-append">
+				<button class="btn btn-primary" type="submit">
+					<i class="fas fa-search fa-sm"></i>
+				</button>
+			</div>
+		</div>
+	</form>
+	<ul class="navbar-nav ml-auto">
+		<li class="nav-item dropdown no-arrow mx-1">
+			<div class="input-group-append">
+				<a class="btn btn-primary" href="/Admin/VaiTroChucNang/Create">
+					Thêm
+				</a>
+			</div>
+		</li>
+	</ul>
+
+</nav>
+}
+
+<div class="card shadow mb-4">
+	<div class="card-body">
+		<div class="table-responsive">
+
+			<div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-bordered dataTable" width="100" cellpadding="0" role="grid" style="width: 100%;">
+							<thead>
+								<tr>
+
+									<th>Nhóm user</th>
+									<th>Xem</th>
+									<th>Thêm</th>
+									<th>Xóa</th>
+									<th>Sửa</th>
+									<th>Chức năng</th>
+									<th>#</th>
+								</tr>
+							</thead>
+							<tbody>
+							<tbody>
+
+								@foreach (var item in Model)
+								{
+								<tr id="row_@item.VaiTroChucNangID" role="row" class="old">
+
+									<td>@item.TenVaiTro</td>
+									@*<td> X </td>
+									<td> X </td>
+									<td> X </td>
+									<td> X </td>*@
+									@if (item.xem.Value)
+									{
+										<td> X </td>
+									}
+									else
+									{
+										<td>  </td>
+									}
+
+									@if (item.them.Value)
+									{
+										<td> X </td>
+									}
+									else
+									{
+										<td>  </td>
+									}
+
+									@if (item.xoa.Value)
+									{
+										<td> X </td>
+									}
+									else
+									{
+										<td>  </td>
+									}
+
+									@if (item.sua.Value)
+									{
+										<td> X </td>
+									}
+									else
+									{
+										<td>  </td>
+									}
+
+
+									<td>@item.TenChucNang</td>
+									<td>
+										<a href="/Admin/VaiTroChucNang/Edit/@item.VaiTroChucNangID">Sửa</a>
+										|
+										@Ajax.ActionLink("Xóa", "Delete",new { @id = item.VaiTroChucNangID}, new AjaxOptions
+								   {
+									   Confirm = "Bạn có muốn xóa bản ghi này?",
+									   OnComplete= "$('#row_" + @item.VaiTroChucNangID + "').remote()",
+									   HttpMethod = "Delete"
+
+								   })
+									</td>
+								</tr>
+								}
+
+
+
+
+							</tbody>
+						</table>
+						@Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = ViewBag.SearchString }))
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
