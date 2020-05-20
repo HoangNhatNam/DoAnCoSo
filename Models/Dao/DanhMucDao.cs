@@ -16,6 +16,14 @@ namespace Models.Dao
 		{
 			db = new DoAnDbContext();
 		}
+		public List<DanhMuc> ListAll()
+		{
+			return db.DanhMucs.ToList();
+		}
+		public List<DanhMuc> ListCustom(int donviID)
+		{
+			return db.DanhMucs.Where(x => x.DonViID == donviID).ToList();
+		}
 		public int Insert(DanhMuc entity)
 		{
 			db.DanhMucs.Add(entity);

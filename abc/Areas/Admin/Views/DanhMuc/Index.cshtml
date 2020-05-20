@@ -30,13 +30,6 @@
 					</a>
 				</div>
 			</li>
-			<li class="nav-item dropdown no-arrow mx-1">
-				<div class="input-group-append">
-					<button class="btn btn-primary" type="button">
-						Lọc
-					</button>
-				</div>
-			</li>
 		</ul>
 
 	</nav>
@@ -52,8 +45,6 @@
 						<table class="table table-bordered dataTable" width="100" cellpadding="0" role="grid" style="width: 100%;">
 							<thead>
 								<tr>
-
-									<th>DanhMucID</th>
 									<th>Tên danh mục</th>
 									<th>Đơn vị</th>
 									<th>#</th>
@@ -64,9 +55,7 @@
 
 								@foreach (var item in Model)
 								{
-									<tr id="row_@item.DanhMucID" role="row" class="old">
-
-										<td>@item.DanhMucID</td>
+									<tr id="row_@item.DanhMucID" role="row" class="old">									
 										<td>@item.TenDanhMuc</td>
 										<td>@item.TenDonVi</td>
 										<td>

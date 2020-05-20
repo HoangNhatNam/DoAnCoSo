@@ -16,6 +16,10 @@ namespace Models.Dao
 		{
 			db = new DoAnDbContext();
 		}
+		public List<User> ListAll()
+		{
+			return db.Users.ToList();
+		}
 		public int Insert(User entity)
 		{	
 			db.Users.Add(entity);		

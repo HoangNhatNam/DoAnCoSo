@@ -24,7 +24,7 @@ namespace Models.Framework
 
         public int? LopID { get; set; }
 
-        [StringLength(50)]
+        [StringLength(75)]
         public string UserName { get; set; }
 
         public int? VaiTroID { get; set; }

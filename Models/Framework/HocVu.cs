@@ -11,22 +11,20 @@ namespace Models.Framework
     {
         public int HocVuID { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime NgayTao { get; set; }
+        public DateTime? NgayTao { get; set; }
 
-        [Column(TypeName = "ntext")]
+        [StringLength(250)]
         public string YeuCauThem { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string TinhTrang { get; set; }
+        public bool? TinhTrang { get; set; }
 
-        public int ParentID { get; set; }
+        public int? ParentID { get; set; }
 
-        public int ChuyenVienID { get; set; }
+        public int? ChuyenVienID { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime NgayHen { get; set; }
+		[DataType(DataType.Date)]
+		public DateTime? NgayHen { get; set; }
 
         public int? DanhMucID { get; set; }
 

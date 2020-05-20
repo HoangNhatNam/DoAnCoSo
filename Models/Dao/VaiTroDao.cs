@@ -20,9 +20,11 @@ namespace Models.Dao
 			return db.VaiTroes.ToList();
 		}
 
-		public int Insert(VaiTro entity)
+		public int Insert(VaiTro entity, VaiTroChucNangPhanMem a)
 		{
+			db.VaiTroChucNangPhanMems.Add(a);
 			db.VaiTroes.Add(entity);
+			a.VaiTroID = entity.VaiTroID;
 			db.SaveChanges();
 			return entity.VaiTroID;
 		}

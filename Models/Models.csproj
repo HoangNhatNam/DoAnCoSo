@@ -94,6 +94,7 @@
     <Compile Include="Framework\VaiTro.cs" />
     <Compile Include="Framework\VaiTroChucNangPhanMem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\CustomCreateVaiTro.cs" />
     <Compile Include="ViewModel\DanhMucViewModel.cs" />
     <Compile Include="ViewModel\HocVuViewModel.cs" />
     <Compile Include="ViewModel\LopViewModel.cs" />

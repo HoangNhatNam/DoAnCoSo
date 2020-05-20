@@ -31,10 +31,6 @@ namespace Models.Framework
 			modelBuilder.Entity<User>()
 				.Property(e => e.Email)
 				.IsUnicode(false);
-
-			modelBuilder.Entity<User>()
-				.Property(e => e.UserName)
-				.IsUnicode(false);
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿@model Models.Framework.VaiTro
+﻿@*@model Models.Framework.VaiTro*@
+@model Models.ViewModel.CustomCreateVaiTro
 
 @{
 	ViewBag.Title = "Create";
@@ -13,24 +14,65 @@
 {
 	@Html.AntiForgeryToken()
 
-	<div class="form-horizontal">
-		<h4>VaiTro</h4>
-		<hr />
-		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-		<div class="form-group">
-			@Html.LabelFor(model => model.TenVaiTro, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.TenVaiTro, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.TenVaiTro, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-		<div class="form-group">
-			<div class="col-md-offset-2 col-md-10">
-				<input type="submit" value="Create" class="btn btn-default" />
-			</div>
+<div class="form-horizontal">
+	<h4>VaiTro</h4>
+	<hr />
+	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+	<div class="form-group">
+		@Html.LabelFor(model => model.TenVaiTro, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.TenVaiTro, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.TenVaiTro, "", new { @class = "text-danger" })
 		</div>
 	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.ChucNangID, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.DropDownListFor(model => model.ChucNangID, null, new { @class = "form-control" } )
+			@Html.ValidationMessageFor(model => model.ChucNangID, "", new { @class = "text-danger" })
+		</div>
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.xem, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.xem, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.xem, "", new { @class = "text-danger" })
+		</div>
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.them, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.them, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.them, "", new { @class = "text-danger" })
+		</div>
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.sua, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.sua, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.sua, "", new { @class = "text-danger" })
+		</div>
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.xoa, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.xoa, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.xoa, "", new { @class = "text-danger" })
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<div class="col-md-offset-2 col-md-10">
+			<input type="submit" value="Create" class="btn btn-default" />
+		</div>
+	</div>
+</div>
 }
 
 <div>

@@ -60,6 +60,11 @@ namespace abc.Common
 			User objUser = (User)HttpContext.Current.Session["useronline"];
 			return objUser.Email;
 		}
+		public User XuatUserID()
+		{
+			User objUser = (User)HttpContext.Current.Session["useronline"];
+			return objUser;
+		}
 		public void CheckPermission(string fromName)
 		{
 			User objUser = (User)HttpContext.Current.Session["useronline"];

@@ -20,7 +20,7 @@
 		<div class="form-group">
 			@Html.LabelFor(model => model.ChucNangID, htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-				@Html.DropDownListFor(model => model.ChucNangID,null, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.DropDownListFor(model => model.ChucNangID,null, new { @class = "form-control" } )
 				@Html.ValidationMessageFor(model => model.ChucNangID, "", new { @class = "text-danger" })
 			</div>
 		</div>
@@ -28,7 +28,10 @@
 		<div class="form-group">
 			@Html.LabelFor(model => model.xem, htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-				@Html.EditorFor(model => model.xem, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.DropDownListFor(model => model.xem,new List<SelectListItem>() {
+					new SelectListItem(){Selected = true, Text = "Được xem", Value = "true"},
+					new SelectListItem(){Selected = false, Text = "Không được xem", Value = "false"},
+				}, new { @class = "form-control" } )
 				@Html.ValidationMessageFor(model => model.xem, "", new { @class = "text-danger" })
 			</div>
 		</div>
@@ -36,7 +39,10 @@
 		<div class="form-group">
 			@Html.LabelFor(model => model.them, htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-				@Html.EditorFor(model => model.them, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.DropDownListFor(model => model.them,new List<SelectListItem>() {
+					new SelectListItem(){Selected = true, Text = "Được thêm", Value = "true"},
+					new SelectListItem(){Selected = false, Text = "Không được thêm", Value = "false"},
+				}, new { @class = "form-control" } )
 				@Html.ValidationMessageFor(model => model.them, "", new { @class = "text-danger" })
 			</div>
 		</div>
@@ -44,7 +50,10 @@
 		<div class="form-group">
 			@Html.LabelFor(model => model.sua, htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-				@Html.EditorFor(model => model.sua, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.DropDownListFor(model => model.sua,new List<SelectListItem>() {
+					new SelectListItem(){Selected = true, Text = "Được sửa", Value = "true"},
+					new SelectListItem(){Selected = false, Text = "Không được sửa", Value = "false"},
+				}, new { @class = "form-control" } )
 				@Html.ValidationMessageFor(model => model.sua, "", new { @class = "text-danger" })
 			</div>
 		</div>
@@ -52,7 +61,10 @@
 		<div class="form-group">
 			@Html.LabelFor(model => model.xoa, htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-				@Html.EditorFor(model => model.xoa, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.DropDownListFor(model => model.xoa,new List<SelectListItem>() {
+					new SelectListItem(){Selected = true, Text = "Được xóa", Value = "true"},
+					new SelectListItem(){Selected = false, Text = "Không được xóa", Value = "false"},
+				}, new { @class = "form-control" } )
 				@Html.ValidationMessageFor(model => model.xoa, "", new { @class = "text-danger" })
 			</div>
 		</div>
@@ -60,7 +72,7 @@
 		<div class="form-group">
 			@Html.LabelFor(model => model.VaiTroID, htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-				@Html.DropDownListFor(model => model.VaiTroID,null, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.DropDownListFor(model => model.VaiTroID,null, new { @class = "form-control" } )
 				@Html.ValidationMessageFor(model => model.VaiTroID, "", new { @class = "text-danger" })
 			</div>
 		</div>

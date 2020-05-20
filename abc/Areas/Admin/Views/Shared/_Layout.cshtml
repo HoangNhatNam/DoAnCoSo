@@ -13,6 +13,7 @@
 	<title>SB Admin 2 - Dashboard</title>
 	<!-- Custom fonts for this template-->
 	<link href="~/Assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 	<!-- Custom styles for this template-->
 	<link href="~/Assets/admin/css/sb-admin-2.min.css" rel="stylesheet">
@@ -52,36 +53,6 @@
 				</a>
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						@*@{
-			if (CheckAuthorize.Instance.KiemTraUser() || CheckAuthorize.Instance.KiemTraAdmin())
-			{
-
-				<a class="collapse-item" href="/Admin/User/Index">User</a>
-			}
-			if (CheckAuthorize.Instance.KiemTraDanhMuc() || CheckAuthorize.Instance.KiemTraAdmin())
-			{
-				<a class="collapse-item" href="/Admin/DanhMuc/Index">Danh mục</a>
-			}
-			if (CheckAuthorize.Instance.KiemTraDonVi() || CheckAuthorize.Instance.KiemTraAdmin())
-			{
-				<a class="collapse-item" href="/Admin/DonVi/Index">Đơn vị</a>
-			}
-			if (CheckAuthorize.Instance.KiemTraLop() || CheckAuthorize.Instance.KiemTraAdmin())
-			{
-				<a class="collapse-item" href="/Admin/Lop/Index">Lớp</a>
-			}
-			if (CheckAuthorize.Instance.KiemTraHocVu() || CheckAuthorize.Instance.KiemTraAdmin())
-			{
-				<a class="collapse-item" href="/Admin/DonVi/Index">Học vụ</a>
-			}
-			if (CheckAuthorize.Instance.KiemTraAdmin())
-			{
-				<h6 class="collapse-header">Trang Admin</h6>
-				<a class="collapse-item" href="/Admin/VaiTro/Index">Vai trò</a>
-				<a class="collapse-item" href="/Admin/VaiTroChucNang/Index">Vai trò chức năng</a>
-				<a class="collapse-item" href="/Admin/ChucNang/Index">Chức năng</a>
-			}
-		}*@
 
 						@{
 							if (CheckAuthorize.Instance.KiemTra() == 1 || CheckAuthorize.Instance.KiemTra() == 2)
@@ -103,7 +74,7 @@
 							}
 							if (CheckAuthorize.Instance.KiemTra() == 1 || CheckAuthorize.Instance.KiemTra() == 5)
 							{
-								<a class="collapse-item" href="/Admin/DonVi/Index">Học vụ</a>
+								<a class="collapse-item" href="/Admin/HocVu/Index">Học vụ</a>
 							}
 							if (CheckAuthorize.Instance.KiemTra() == 1)
 							{
@@ -207,7 +178,7 @@
 				</nav>
 				<!-- End of Topbar -->
 				<!-- Begin Page Content -->
-				
+
 
 				<div class="container-fluid">
 					<div class="container-fluid">

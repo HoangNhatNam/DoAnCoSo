@@ -3,6 +3,7 @@
 @using abc.Common;
 
 @using PagedList.Mvc;
+@using PagedList;
 
 @{
 	/**/
@@ -20,34 +21,33 @@
 }
 @using (Html.BeginForm("Index", "User", FormMethod.Get))
 {
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-	<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-		<div class="input-group">
-			<input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" name="searchString" value="@ViewBag.SearchString">
-			<div class="input-group-append">
-				<button class="btn btn-primary" type="submit">
-					<i class="fas fa-search fa-sm"></i>
-				</button>
-			</div>
-		</div>
-	</form>
-	@if (isAdd)
-	{
-		<ul class="navbar-nav ml-auto">
-			<li class="nav-item dropdown no-arrow mx-1">
+	<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+		<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+			<div class="input-group">
+				<input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" name="searchString" value="@ViewBag.SearchString">
 				<div class="input-group-append">
-					<a class="btn btn-primary" href="/Admin/User/Create">
-						Thêm
-					</a>
+					<button class="btn btn-primary" type="submit">
+						<i class="fas fa-search fa-sm"></i>
+					</button>
 				</div>
-			</li>
-		</ul>
-	}
+			</div>
+		</form>
+		@if (isAdd)
+		{
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item dropdown no-arrow mx-1">
+					<div class="input-group-append">
+						<a class="btn btn-primary" href="/Admin/User/Create">
+							Thêm
+						</a>
+					</div>
+				</li>
+			</ul>
+		}
 
 
-</nav>
+	</nav>
 }
-
 <div class="card shadow mb-4">
 	<div class="card-body">
 		<div class="table-responsive">
@@ -72,32 +72,32 @@
 
 								@foreach (var item in Model)
 								{
-								<tr id="row_@item.UserID" role="row" class="old">
+									<tr id="row_@item.UserID" role="row" class="old">
 
-									<td>@item.Email</td>
-									<td>@item.TenDonVi</td>
-									<td>@item.TenLop</td>
-									<td>@item.UserName</td>
-									<td>@item.TenVaiTro</td>
-									<td>
-										@if (isEdit)
-										{
-											<a href="/Admin/User/Edit/@item.UserID">Sửa</a>
-										}
-										|
-										@if (isDelete)
-										{
-											@Ajax.ActionLink("Xóa", "Delete", new { @id = item.UserID }, new AjaxOptions
-									   {
-										   Confirm = "Bạn có muốn xóa bản ghi này?",
-										   OnComplete = "$('#row_" + @item.UserID + "').remote()",
-										   HttpMethod = "Delete"
+										<td>@item.Email</td>
+										<td>@item.TenDonVi</td>
+										<td>@item.TenLop</td>
+										<td>@item.UserName</td>
+										<td>@item.TenVaiTro</td>
+										<td>
+											@if (isEdit)
+											{
+												<a href="/Admin/User/Edit/@item.UserID">Sửa</a>
+											}
+											|
+											@if (isDelete)
+											{
+												@Ajax.ActionLink("Xóa", "Delete", new { @id = item.UserID }, new AjaxOptions
+										   {
+											   Confirm = "Bạn có muốn xóa bản ghi này?",
+											   OnComplete = "$('#row_" + @item.UserID + "').remote()",
+											   HttpMethod = "Delete"
 
-									   })
-										}
+										   })
+											}
 
-									</td>
-								</tr>
+										</td>
+									</tr>
 								}
 
 
@@ -105,7 +105,10 @@
 
 							</tbody>
 						</table>
-						@Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = ViewBag.SearchString }))
+
+						@Html.PagedListPager(Model, page => Url.Action("Index", "User", new { page, @searchString = ViewBag.SearchString }))
+
+
 					</div>
 				</div>
 			</div>

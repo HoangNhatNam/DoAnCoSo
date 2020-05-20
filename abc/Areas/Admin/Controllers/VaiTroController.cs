@@ -24,15 +24,17 @@ namespace abc.Areas.Admin.Controllers
 		[HttpGet]
 		public ActionResult Create()
 		{
+			SetViewBagChucNang();
 			return View();
 		}
 		[HttpPost]
-		public ActionResult Create(VaiTro vaitro)
+		public ActionResult Create(VaiTro vaitro, VaiTroChucNangPhanMem a)
 		{
 			if (ModelState.IsValid)
 			{
 				var dao = new VaiTroDao();
-				int id = dao.Insert(vaitro);
+				int id = dao.Insert(vaitro, a);
+				
 				if (id > 0)
 				{
 					SetAlert("Thêm vai trò thành công", "success");
@@ -42,7 +44,7 @@ namespace abc.Areas.Admin.Controllers
 				{
 					ModelState.AddModelError("", "Thêm không thành công");
 				}
-
+				SetViewBagChucNang();
 			}
 			return View("Index");
 		}
@@ -80,6 +82,11 @@ namespace abc.Areas.Admin.Controllers
 		{
 			new VaiTroDao().Delete(id);
 			return RedirectToAction("Index");
+		}
+		public void SetViewBagChucNang(int? ChucNangID = null)
+		{
+			var dao = new ChucNangDao();
+			ViewBag.ChucNangID = new SelectList(dao.ListAll(), "ChucNangID", "TenChucNang", ChucNangID);
 		}
 	}
 }
