@@ -23,12 +23,13 @@ namespace Models.Dao
 			db.SaveChanges();
 			return entity.HocVuID;
 		}
-		public int Insert2(HocVu entity, User a)
+		public int Insert2(HocVu entity, User a, int dem)
 		{
 			db.HocVus.Add(entity);
 			entity.TinhTrang = false;
 			entity.UserID = a.UserID;
 			entity.NgayTao = DateTime.Now;
+			entity.ParentID = dem;
 			db.SaveChanges();
 			return entity.HocVuID;
 		}
@@ -54,6 +55,13 @@ namespace Models.Dao
 			{
 				return false;
 			}
+		}
+		public bool ChangeTinhTrang(int id)
+		{
+			var hocvu = db.HocVus.Find(id);
+			hocvu.TinhTrang = !hocvu.TinhTrang;
+			db.SaveChanges();
+			return hocvu.TinhTrang;
 		}
 		public IEnumerable<HocVuViewModel> ListHocVu(string searchString, int page, int pageSize)
 		{
@@ -82,6 +90,33 @@ namespace Models.Dao
 			}
 			return model.OrderBy(x => x.NgayTao).ToPagedList(page, pageSize);
 		}
+
+		public IEnumerable<HocVuViewModel> ListLichSu(string searchString, int page, int pageSize, User e)
+		{
+			IQueryable<HocVuViewModel> model;
+			model = from a in db.HocVus
+					join b in db.DonVis on a.DonViID equals b.DonViID
+					join c in db.Users on a.UserID equals c.UserID where(c.UserID == e.UserID)
+					join d in db.DanhMucs on a.DanhMucID equals d.DanhMucID
+					select new HocVuViewModel()
+					{
+						HocVuID = a.HocVuID,
+						NgayTao = a.NgayTao,
+						YeuCauThem = a.YeuCauThem,
+						TinhTrang = a.TinhTrang,
+						UserName = c.UserName,
+						ParentID = a.ParentID,
+						NgayHen = a.NgayHen,
+						TenDanhMuc = d.TenDanhMuc,
+						TenDonVi = b.TenDonVi,
+					};
+			if (!string.IsNullOrEmpty(searchString))
+			{
+				model = model.Where(x => x.TenDonVi.Contains(searchString) || x.UserName.Contains(searchString) || x.TenDanhMuc.Contains(searchString));
+			}
+			return model.OrderBy(x => x.NgayTao).ToPagedList(page, pageSize);
+		}
+
 		public HocVu ViewDetail(int id)
 		{
 			return db.HocVus.Find(id);

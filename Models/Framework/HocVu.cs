@@ -16,7 +16,7 @@ namespace Models.Framework
         [StringLength(250)]
         public string YeuCauThem { get; set; }
 
-        public bool? TinhTrang { get; set; }
+        public bool TinhTrang { get; set; }
 
         public int? ParentID { get; set; }
 
@@ -26,7 +26,7 @@ namespace Models.Framework
 		[DataType(DataType.Date)]
 		public DateTime? NgayHen { get; set; }
 
-        public int? DanhMucID { get; set; }
+        public int DanhMucID { get; set; }
 
         public int? UserID { get; set; }
 

@@ -21,9 +21,9 @@
 					</td>
 					<td>
 						<div class="col-md-10">
-							@Html.DropDownListFor( model => model.DonViID, null, new { @class = "form-control" })
+							@Html.DropDownListFor(model => model.DonViID, null,"--Chọn đơn vị--", new { @class = "form-control" })
 							@Html.ValidationMessageFor(model => model.DonViID, "", new { @class = "text-danger" })
-							
+
 						</div>
 					</td>
 				</tr>
@@ -33,7 +33,7 @@
 					</td>
 					<td>
 						<div class="col-md-10 ">
-							@Html.DropDownListFor(model => model.DanhMucID, null, new { @class = "form-control" })
+							@Html.DropDownListFor(model => model.DanhMucID, new SelectList(" "), "--Chọn danh mục--", new { @class = "form-control", @onChange = "selectedtext(this)" })
 							@Html.ValidationMessageFor(model => model.DanhMucID, "", new { @class = "text-danger" })
 						</div>
 					</td>
@@ -59,20 +59,15 @@
 						</div>
 					</td>
 				</tr>
+				
 				<tr>
 					<td>
 						<label><b>Yêu cầu đã gửi</b></label>
 					</td>
 					<td>
-						<div class="dropdown ">
-							<div class="dropdown-toggle" data-toggle="dropdown">
-								<strong>Dropdown Menu</strong>
-							</div>
-							<div class="dropdown-menu">
-								<a class="dropdown-item" href="#">Menu 1</a>
-								<a class="dropdown-item" href="#">Menu item 2</a>
-							</div>
-						</div>
+						@*<input type="text" id="txt" readonly="readonly"/>*@
+						@Html.DropDownListFor(model => model.ParentID, new SelectList(" "), "--Chọn danh mục--", new { @class = "form-control" })
+						@Html.ValidationMessageFor(model => model.ParentID, "", new { @class = "text-danger" })
 					</td>
 				</tr>
 				<tr>
@@ -87,3 +82,47 @@
 		</div>
 	</div>
 }
+	@*<input type="text" id="txt" readonly="readonly" />*@
+	@*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
+	
+	<script src="~/Scripts/jquery-1.8.0.min.js"></script>
+<script>
+	$(document).ready(function () {
+		$("#DanhMucID").change(function () {
+			$.get("/Home/GetParentID", { DanhMucID: $("#DanhMucID").val() }, function (data) {
+				$("#ParentID").empty();
+				$.each(data, function (index, row) {
+					var a = row.ParentID + 1;
+					if (row.ParentID != null) {
+						var b = "Lần thứ " + a;
+					} else {
+						b = "Lần đầu tiên";
+					}
+					$("#ParentID").append("<option value='" + row.ParentID + "'>" + b + "</option>")
+				});
+			});
+		})
+	});
+</script>
+
+<script>
+	$(document).ready(function () {
+		$("#DonViID").change(function () {
+			$.get("/Home/GetDanhMucList", { DonViID: $("#DonViID").val() }, function (data) {
+				$("#DanhMucID").empty();
+				$.each(data, function (index, row) {
+					$("#DanhMucID").append("<option value='" + row.DanhMucID + "'>" + row.TenDanhMuc + "</option>")
+				});
+			});
+		})
+	});
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	function selectedtext(ddlitem) {
+		var selvalue = ddlitem.value;
+		var seltext = ddlitem.options[ddlitem.selectedIndex].innerHTML;
+		$('#txt').val(seltext);
+	}
+</script>

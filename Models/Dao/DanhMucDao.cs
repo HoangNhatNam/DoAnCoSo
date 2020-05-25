@@ -20,10 +20,6 @@ namespace Models.Dao
 		{
 			return db.DanhMucs.ToList();
 		}
-		public List<DanhMuc> ListCustom(int donviID)
-		{
-			return db.DanhMucs.Where(x => x.DonViID == donviID).ToList();
-		}
 		public int Insert(DanhMuc entity)
 		{
 			db.DanhMucs.Add(entity);
@@ -64,7 +60,7 @@ namespace Models.Dao
 			{
 				model = model.Where(x => x.TenDanhMuc.Contains(searchString) || x.TenDonVi.Contains(searchString));
 			}
-			return model.OrderBy(x => x.DanhMucID).ToPagedList(page, pageSize);
+			return model.OrderBy(x => x.TenDonVi).ToPagedList(page, pageSize);
 		}
 
 		public DanhMuc GetById(int id)

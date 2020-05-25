@@ -107,5 +107,14 @@ namespace abc.Areas.Admin.Controllers
 			var dao = new UserDao();
 			ViewBag.UserID = new SelectList(dao.ListAll(), "UserID", "UserName", UserID);
 		}
+		[HttpPost]
+		public JsonResult ChangeTinhTrang(int id)
+		{
+			var result = new HocVuDao().ChangeTinhTrang(id);
+			return Json(new
+			{
+				status = result
+			});
+		}
 	}
 }

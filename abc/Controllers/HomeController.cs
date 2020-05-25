@@ -1,4 +1,5 @@
 ﻿using abc.Common;
+using abc.Models;
 using Models.Dao;
 using Models.Framework;
 using System;
@@ -6,26 +7,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace abc.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
-        public ActionResult Index()
+		// GET: Home
+		DoAnDbContext db = new DoAnDbContext();
+
+		public ActionResult Index()
         {
 			SetViewBag();
-			SetViewBagDanhMuc();
 			return View();
         }
 		[HttpPost]
 		public ActionResult Index(HocVu hocvu)
 		{
 			User a = CheckAuthorize.Instance.XuatUserID();
+			
 			if (ModelState.IsValid)
 			{
 				var dao = new HocVuDao();
-				int id = dao.Insert2(hocvu, a);
+				int dem ;	
+				var child = db.HocVus.Where(x => x.UserID + x.DanhMucID == a.UserID + hocvu.DanhMucID && x.UserID == a.UserID);
+				if(child.Count() > 0)
+				{
+					dem = child.Count() + 1;
+				}
+				else
+				{
+					dem = 1;
+				}
+				int id = dao.Insert2(hocvu, a, dem);
 				if (id > 0)
 				{
 					SetAlert("Thêm học vụ thành công", "success");
@@ -35,7 +49,6 @@ namespace abc.Controllers
 					ModelState.AddModelError("", "Thêm học vụ không thành công");
 				}
 				SetViewBag();
-				SetViewBagDanhMuc();
 			}
 			return View();
 		}
@@ -44,12 +57,21 @@ namespace abc.Controllers
 			var dao = new DonViDao();
 			ViewBag.DonViID = new SelectList(dao.ListAll(), "DonViID", "TenDonVi", DonViID);
 		}
-		public void SetViewBagDanhMuc(int? DanhMucID = null)
+		public JsonResult GetDanhMucList(int DonViID)
 		{
-			var dao = new DanhMucDao();
-			//string strDDLValue = Request.Form["ddlVendor"].ToString();
-			ViewBag.DanhMucID = new SelectList(dao.ListAll(), "DanhMucID", "TenDanhMuc", DanhMucID);
+			db.Configuration.ProxyCreationEnabled = false;
+			List<DanhMuc> DanhMucList = db.DanhMucs.Where(x => x.DonViID == DonViID).ToList();
+			return Json(DanhMucList, JsonRequestBehavior.AllowGet);
 		}
+
+		public JsonResult GetParentID(int DanhMucID)
+		{
+			db.Configuration.ProxyCreationEnabled = false;
+			User a = CheckAuthorize.Instance.XuatUserID();
+			List<HocVu> child = db.HocVus.Where(x => x.UserID + x.DanhMucID == a.UserID + DanhMucID && x.UserID == a.UserID).ToList();
+			return Json(child, JsonRequestBehavior.AllowGet);
+		}
+
 		protected void SetAlert(string massage, string type)
 		{
 			TempData["AlertMassage"] = massage;

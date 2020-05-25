@@ -90,7 +90,7 @@
 												@Ajax.ActionLink("Xóa", "Delete", new { @id = item.UserID }, new AjaxOptions
 										   {
 											   Confirm = "Bạn có muốn xóa bản ghi này?",
-											   OnComplete = "$('#row_" + @item.UserID + "').remote()",
+											   OnComplete = "$('#row_" + @item.UserID + "').remove()",
 											   HttpMethod = "Delete"
 
 										   })

@@ -55,15 +55,16 @@ namespace abc.Common
 			ChucNangPhanMem objCNPM = Comon.Instance.ChucNangPhanMems.Where(p => p.ChucNangID == objVTCN.ChucNangID).First<ChucNangPhanMem>();
 			return objCNPM.TenTrang;
 		}
-		public string XuatEmailUser()
-		{
-			User objUser = (User)HttpContext.Current.Session["useronline"];
-			return objUser.Email;
-		}
+		
 		public User XuatUserID()
 		{
 			User objUser = (User)HttpContext.Current.Session["useronline"];
 			return objUser;
+		}
+		public string XuatEmailUser()
+		{
+			User objUser = (User)HttpContext.Current.Session["useronline"];
+			return objUser.Email;
 		}
 		public void CheckPermission(string fromName)
 		{
