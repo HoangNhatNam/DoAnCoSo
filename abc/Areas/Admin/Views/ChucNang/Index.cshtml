@@ -40,8 +40,8 @@
 								<tr>
 
 									<th>Tên chức năng</th>
-									<th>key</th>
-									<th>#</th>
+									
+									
 								</tr>
 							</thead>
 							<tbody>
@@ -52,16 +52,8 @@
 									<tr id="row_@item.ChucNangID" role="row" class="old">
 
 										<td>@item.TenChucNang</td>
-										<td>@item.TenTrang</td>
-										<td>
-											@Ajax.ActionLink("Xóa", "Delete",new { @id = item.ChucNangID}, new AjaxOptions
-									   {
-										   Confirm = "Bạn có muốn xóa bản ghi này?",
-										   OnComplete= "$('#row_" + @item.ChucNangID + "').remote()",
-										   HttpMethod = "Delete"
-
-									   })
-										</td>
+										
+										
 									</tr>
 								}
 

@@ -60,7 +60,7 @@ namespace Models.Dao
 			{
 				model = model.Where(x => x.TenLop.Contains(searchString) || x.TenDonVi.Contains(searchString));
 			}
-			return model.OrderBy(x => x.LopID).ToPagedList(page, pageSize);
+			return model.OrderBy(x => x.TenDonVi).ToPagedList(page, pageSize);
 		}
 
 

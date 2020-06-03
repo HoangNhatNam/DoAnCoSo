@@ -29,16 +29,33 @@ namespace abc.Controllers
 			if (ModelState.IsValid)
 			{
 				var dao = new HocVuDao();
-				int dem ;	
+				int dem;
 				var child = db.HocVus.Where(x => x.UserID + x.DanhMucID == a.UserID + hocvu.DanhMucID && x.UserID == a.UserID);
-				if(child.Count() > 0)
-				{
-					dem = child.Count() + 1;
-				}
-				else
+				var moc = from q in db.HocVus where(q.UserID + q.DanhMucID == a.UserID + hocvu.DanhMucID && q.UserID == a.UserID && q.TinhTrang == true)
+						select q.HocVuID;
+
+				
+				if(child.Count() == 0)
 				{
 					dem = 1;
 				}
+				if(moc.Count() != 0){
+					int mocMax = moc.Max();
+					var xyz = db.HocVus.Where(x => x.UserID + x.DanhMucID == a.UserID + hocvu.DanhMucID && x.UserID == a.UserID && x.HocVuID > mocMax);
+					if (xyz.Count() > 0)
+					{
+						dem = xyz.Count() + 1;
+					}
+					else
+					{
+						dem = 1;
+					}
+				}
+				else
+				{
+					dem = child.Count() + 1;
+				}
+				
 				int id = dao.Insert2(hocvu, a, dem);
 				if (id > 0)
 				{

@@ -16,73 +16,78 @@
 					<td height="20px"></td>
 				</tr>
 				<tr>
-					<td>
-						<label><b>Chọn phòng</b></label>
+					<td class="align-text-top">
+						<p><strong>Chọn đơn vị</strong></p>
+						
+						
 					</td>
-					<td>
-						<div class="col-md-10">
+					<td width="400px">
+						<div >
 							@Html.DropDownListFor(model => model.DonViID, null,"--Chọn đơn vị--", new { @class = "form-control" })
 							@Html.ValidationMessageFor(model => model.DonViID, "", new { @class = "text-danger" })
-
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label><b>Chọn danh mục yêu cầu</b></label>
-					</td>
-					<td>
-						<div class="col-md-10 ">
-							@Html.DropDownListFor(model => model.DanhMucID, new SelectList(" "), "--Chọn danh mục--", new { @class = "form-control", @onChange = "selectedtext(this)" })
-							@Html.ValidationMessageFor(model => model.DanhMucID, "", new { @class = "text-danger" })
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label><b>Yêu cầu thêm</b></label>
-					</td>
-					<td>
-						@Html.TextAreaFor(m => m.YeuCauThem, new { @class = "form-control col-md-10", @cols = 10, @rows = 5 })
-
-						@Html.ValidationMessageFor(m => m.YeuCauThem)
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label><b>Ngày hẹn</b></label>
-					</td>
-					<td>
-						<div class="col-md-10">
-							@Html.EditorFor(model => model.NgayHen, new { htmlAttributes = new { @class = "form-control" } })
-							@Html.ValidationMessageFor(model => model.NgayHen, "", new { @class = "text-danger" })
+							<br />
 						</div>
 					</td>
 				</tr>
 				
 				<tr>
-					<td>
-						<label><b>Yêu cầu đã gửi</b></label>
+					<td class="align-text-top" width="130px">
+						<label><b>Chọn danh mục <br />yêu cầu</b></label>
 					</td>
-					<td>
-						@*<input type="text" id="txt" readonly="readonly"/>*@
-						@Html.DropDownListFor(model => model.ParentID, new SelectList(" "), "--Chọn danh mục--", new { @class = "form-control" })
-						@Html.ValidationMessageFor(model => model.ParentID, "", new { @class = "text-danger" })
+					<td width="400px">
+						<div >
+							@Html.DropDownListFor(model => model.DanhMucID, new SelectList(" "), "--Chọn danh mục--", new { @class = "form-control", @onChange = "selectedtext(this)" })
+							@Html.ValidationMessageFor(model => model.DanhMucID, "", new { @class = "text-danger" })
+							<br />
+						</div>
 					</td>
 				</tr>
 				<tr>
-					<td>
+					<td class="align-text-top">
+						<label><b>Yêu cầu thêm</b></label>
+					</td>
+					<td width="400px">
+						@Html.TextAreaFor(m => m.YeuCauThem, new { @class = "form-control", @cols = 10, @rows = 5 })
+
+						@Html.ValidationMessageFor(m => m.YeuCauThem)
+						<br />
+					</td>
+				</tr>
+				<tr>
+					<td class="align-text-top">
+						<label><b>Ngày hẹn</b></label>
+					</td>
+					<td width="400px">
+						<div >
+							@Html.EditorFor(model => model.NgayHen, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.NgayHen, "", new { @class = "text-danger" })
+							<br />
+						</div>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="align-text-top">
+						<label><b>Yêu cầu đã gửi</b></label>
+					</td>
+					<td width="400px">
+						
+						@Html.DropDownListFor(model => model.ParentID, new SelectList(" "), "--Số lần gửi--", new { @class = "form-control" })
+						@Html.ValidationMessageFor(model => model.ParentID, "", new { @class = "text-danger" })
+						<br />
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td class="text-sm-right">
 						<button class="btn btn-primary" id="sendMessageButton" type="submit">Gửi</button>
 					</td>
-					<td>
-						<button class="btn btn-primary" id="sendMessageButton" type="submit">Hủy</button>
-					</td>
+					
 				</tr>
 			</table>
 		</div>
 	</div>
 }
-	@*<input type="text" id="txt" readonly="readonly" />*@
 	@*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
 	
 	<script src="~/Scripts/jquery-1.8.0.min.js"></script>
@@ -118,11 +123,3 @@
 	});
 </script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-	function selectedtext(ddlitem) {
-		var selvalue = ddlitem.value;
-		var seltext = ddlitem.options[ddlitem.selectedIndex].innerHTML;
-		$('#txt').val(seltext);
-	}
-</script>

@@ -59,7 +59,9 @@ namespace Models.Dao
 		public bool ChangeTinhTrang(int id)
 		{
 			var hocvu = db.HocVus.Find(id);
+			
 			hocvu.TinhTrang = !hocvu.TinhTrang;
+			
 			db.SaveChanges();
 			return hocvu.TinhTrang;
 		}
@@ -86,9 +88,10 @@ namespace Models.Dao
 					};
 			if (!string.IsNullOrEmpty(searchString))
 			{
-				model = model.Where(x => x.TenDonVi.Contains(searchString) || x.UserName.Contains(searchString) || x.TenDanhMuc.Contains(searchString));
+				model = model.Where(x => x.TenDonVi.Contains(searchString) || x.UserName.Contains(searchString) || x.TenDanhMuc.Contains(searchString)
+				|| x.TenVaiTro.Contains(searchString) || x.YeuCauThem.Contains(searchString));
 			}
-			return model.OrderBy(x => x.NgayTao).ToPagedList(page, pageSize);
+			return model.OrderBy(x => x.UserName).ToPagedList(page, pageSize);
 		}
 
 		public IEnumerable<HocVuViewModel> ListLichSu(string searchString, int page, int pageSize, User e)

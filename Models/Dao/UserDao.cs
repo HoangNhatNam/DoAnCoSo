@@ -74,7 +74,8 @@ namespace Models.Dao
 						};
 			if (!string.IsNullOrEmpty(searchString))
 			{
-				model = model.Where(x => x.UserName.Contains(searchString) || x.Email.Contains(searchString));
+				model = model.Where(x => x.UserName.Contains(searchString) || x.Email.Contains(searchString)
+				|| x.TenVaiTro.Contains(searchString) || x.TenDonVi.Contains(searchString) || x.TenLop.Contains(searchString));
 			}
 			return model.OrderBy(x => x.TenVaiTro).ToPagedList(page, pageSize);
 		}

@@ -1,4 +1,5 @@
-﻿using abc.Models;
+﻿using abc.Common;
+using abc.Models;
 using Models.Dao;
 using Models.Framework;
 using System;
@@ -35,6 +36,7 @@ namespace abc.Areas.Admin.Controllers
 			if (ModelState.IsValid)
 			{
 				var dao = new HocVuDao();
+				
 				int id = dao.Insert(hocvu);
 				if (id > 0)
 				{

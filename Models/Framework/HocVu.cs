@@ -1,8 +1,9 @@
-namespace Models.Framework
+﻿namespace Models.Framework
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+	using System.ComponentModel;
+	using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
@@ -10,13 +11,14 @@ namespace Models.Framework
     public partial class HocVu
     {
         public int HocVuID { get; set; }
-
-        public DateTime? NgayTao { get; set; }
+		[DisplayName("Ngày tạo")]
+		public DateTime? NgayTao { get; set; }
 
         [StringLength(250)]
-        public string YeuCauThem { get; set; }
-
-        public bool TinhTrang { get; set; }
+		[DisplayName("Yêu cầu thêm")]
+		public string YeuCauThem { get; set; }
+		[DisplayName("Tình trạng")]
+		public bool TinhTrang { get; set; }
 
         public int? ParentID { get; set; }
 
@@ -24,6 +26,7 @@ namespace Models.Framework
 
         [Column(TypeName = "date")]
 		[DataType(DataType.Date)]
+		[DisplayName("Ngày hẹn")]
 		public DateTime? NgayHen { get; set; }
 
         public int DanhMucID { get; set; }

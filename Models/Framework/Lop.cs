@@ -1,8 +1,9 @@
-namespace Models.Framework
+﻿namespace Models.Framework
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+	using System.ComponentModel;
+	using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
@@ -19,9 +20,10 @@ namespace Models.Framework
 
         [Required]
         [StringLength(50)]
-        public string TenLop { get; set; }
-
-        public int? DonViID { get; set; }
+		[DisplayName("Tên lớp")]
+		public string TenLop { get; set; }
+		[DisplayName("Đơn vị")]
+		public int? DonViID { get; set; }
 
         public virtual DonVi DonVi { get; set; }
 
