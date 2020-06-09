@@ -13,6 +13,7 @@ namespace abc.Areas.Admin.Controllers
     public class HocVuController : BaseController
 	{
 		// GET: Admin/HocVu
+		DoAnDbContext db = new DoAnDbContext();
 		[KiemTraQuyen(PermissionName = "DanhSachHocVu")]
 		public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
 		{
@@ -30,27 +31,33 @@ namespace abc.Areas.Admin.Controllers
 			SetViewBagUser();
 			return View();
 		}
-		[HttpPost]
-		public ActionResult Create(HocVu hocvu)
+		[HttpGet]
+		public ActionResult Chat(int id)
 		{
+			var hocvu = new HocVuDao();
+			var content = hocvu.ViewDetail(id);
+			return View(content);
+		}
+		[HttpPost]
+		public ActionResult Chat(HocVu hocvu)
+		{
+			User a = CheckAuthorize.Instance.XuatUserID();
 			if (ModelState.IsValid)
 			{
 				var dao = new HocVuDao();
 				
-				int id = dao.Insert(hocvu);
+				int id = dao.Insert(hocvu, a);
 				if (id > 0)
 				{
-					SetAlert("Thêm học vụ thành công", "success");
+					SetAlert("Thêm thành công", "success");
 					return RedirectToAction("Index", "HocVu");
 				}
 				else
 				{
-					ModelState.AddModelError("", "Thêm học vụ không thành công");
+					ModelState.AddModelError("", "Thêm không thành công");
 				}
-				SetViewBag();
-				SetViewBagDanhMuc();
-				SetViewBagUser();
 			}
+
 			return View("Index");
 		}
 		[KiemTraQuyen(PermissionName = "DanhSachHocVu")]

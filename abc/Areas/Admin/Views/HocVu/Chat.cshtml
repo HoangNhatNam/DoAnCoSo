@@ -1,0 +1,77 @@
+﻿@model Models.Framework.HocVu
+
+@{
+	ViewBag.Title = "Chat";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+	Chat
+}
+
+@using (Html.BeginForm("Chat", "HocVu", FormMethod.Post))
+{
+	@Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+	<hr />
+	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+	<div class="form-group" id="ParentID">
+		@Html.LabelFor(model => model.ParentID, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.ParentID, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.ParentID, "", new { @class = "text-danger" })
+		</div>
+	</div>
+
+	<div class="form-group" id="DonViID">
+		@Html.LabelFor(model => model.DonViID, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.DonViID, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.DonViID, "", new { @class = "text-danger" })
+		</div>
+	</div>
+
+	<div class="form-group" id="DanhMucID">
+		@Html.LabelFor(model => model.DanhMucID, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.DanhMucID, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.DanhMucID, "", new { @class = "text-danger" })
+		</div>
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.YeuCauThem, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.YeuCauThem, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.YeuCauThem, "", new { @class = "text-danger" })
+		</div>
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.NgayHen, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.NgayHen, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.NgayHen, "", new { @class = "text-danger" })
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<div class="col-md-offset-2 col-md-10">
+			<input type="submit" value="Create" class="btn btn-default" />
+		</div>
+	</div>
+</div>
+}
+
+<div>
+	@Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+	document.getElementById("ParentID").style.display = 'none';
+	document.getElementById("DonViID").style.display = 'none';
+	document.getElementById("DanhMucID").style.display = 'none';
+</script>

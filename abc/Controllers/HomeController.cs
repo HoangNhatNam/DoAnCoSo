@@ -31,31 +31,35 @@ namespace abc.Controllers
 				var dao = new HocVuDao();
 				int dem;
 				var child = db.HocVus.Where(x => x.UserID + x.DanhMucID == a.UserID + hocvu.DanhMucID && x.UserID == a.UserID);
-				var moc = from q in db.HocVus where(q.UserID + q.DanhMucID == a.UserID + hocvu.DanhMucID && q.UserID == a.UserID && q.TinhTrang == true)
-						select q.HocVuID;
-
-				
-				if(child.Count() == 0)
+				var getHVID = from q in db.HocVus
+						  where (q.UserID + q.DanhMucID == a.UserID + hocvu.DanhMucID && q.UserID == a.UserID)
+						  select q.HocVuID;
+				var moc = from q in db.HocVus
+						  where (q.UserID + q.DanhMucID == a.UserID + hocvu.DanhMucID && q.UserID == a.UserID && q.TinhTrang == true)
+						  select q.HocVuID;
+				if (child.Count() == 0)
 				{
-					dem = 1;
+					dem = 0;
 				}
-				if(moc.Count() != 0){
+				else
+				{
+					dem = getHVID.Min();
+				}
+				if (moc.Count() != 0)
+				{
 					int mocMax = moc.Max();
 					var xyz = db.HocVus.Where(x => x.UserID + x.DanhMucID == a.UserID + hocvu.DanhMucID && x.UserID == a.UserID && x.HocVuID > mocMax);
 					if (xyz.Count() > 0)
 					{
-						dem = xyz.Count() + 1;
+						dem = getHVID.Where(x => x > mocMax).Min();
 					}
 					else
 					{
-						dem = 1;
+						dem = 0;
 					}
 				}
-				else
-				{
-					dem = child.Count() + 1;
-				}
 				
+
 				int id = dao.Insert2(hocvu, a, dem);
 				if (id > 0)
 				{

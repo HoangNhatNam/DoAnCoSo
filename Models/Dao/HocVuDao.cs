@@ -17,9 +17,12 @@ namespace Models.Dao
 		{
 			db = new DoAnDbContext();
 		}
-		public int Insert(HocVu entity)
+		public int Insert(HocVu entity, User a)
 		{
 			db.HocVus.Add(entity);
+			entity.TinhTrang = false;
+			entity.UserID = a.UserID;	
+			entity.NgayTao = DateTime.Now;
 			db.SaveChanges();
 			return entity.HocVuID;
 		}
@@ -33,6 +36,7 @@ namespace Models.Dao
 			db.SaveChanges();
 			return entity.HocVuID;
 		}
+		
 		public bool Update(HocVu entity)
 		{
 
