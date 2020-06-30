@@ -10,6 +10,9 @@ using Models.Dao;
 using abc.Common;
 using abc.Models;
 using Models.Framework;
+using System.Net.Mail;
+using System.Net;
+using System.Configuration;
 
 namespace abc.Areas.Admin.Controllers
 {
@@ -26,33 +29,37 @@ namespace abc.Areas.Admin.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				//var dao = new UserDao();
-				//var result = dao.Login(model.Email);
-				//if (result)
-				//{
-				//	var user = dao.GetById(model.Email);
-				//	var userSession = new UserLogin();
-				//	userSession.Email = user.Email;
-				//	userSession.UserID = user.UserID;
-				//	Session.Add(CommonConstant.USER_SESSION, userSession);
+				string pass = Request.Form["txtBox1"];
+				MailMessage mail = new MailMessage();
+				SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
-				//	return RedirectToAction("Index", "Home");
-				//}
-				//else
-				//{
-				//	ModelState.AddModelError("", "Đăng nhập không đúng");
-				//}
 				var login = Comon.Instance.Users.Where(n => n.Email.Equals(model.Email)).FirstOrDefault<User>();
-				if(login != null)
+				if(login != null && pass != "")
 				{
-					Session["SessionID"] = login.UserID.ToString();
-					Session["SessionHoTen"] = login.UserName;
-					Session["useronline"] = login;
-					return RedirectToAction("Index", "Home");
+					try
+					{
+						Session["SessionID"] = login.UserID.ToString();
+						Session["SessionHoTen"] = login.UserName;
+						Session["useronline"] = login;
+						mail.From = new MailAddress("1710223@dlu.edu.vn");
+						mail.To.Add("1710223@dlu.edu.vn");
+						mail.Subject = "Verification";
+						mail.Body = $"Đăng nhập thành công {DateTime.Now}";
+						SmtpServer.Port = 587;
+						SmtpServer.Credentials = new System.Net.NetworkCredential(login.Email, pass);
+						SmtpServer.EnableSsl = true;
+						SmtpServer.Send(mail);
+						return RedirectToAction("Index", "Home");
+					}
+					catch (Exception ex)
+					{
+						ModelState.AddModelError("", "Đăng nhập không đúng");
+						return RedirectToAction("Index", "Login");
+					}
 				}
 				else
 				{
-					//ModelState.AddModelError("", "Đăng nhập không đúng");
+					ModelState.AddModelError("", "Đăng nhập không đúng");
 					return RedirectToAction("Index", "Login");
 				}
 			}

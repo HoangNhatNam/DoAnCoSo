@@ -11,7 +11,7 @@
 		<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
 			<div class="input-group">
 				<input type="search" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" name="searchString" value="@ViewBag.SearchString">
-				
+
 				<div class="input-group-append">
 					<button class="btn btn-primary" type="submit">
 						<i class="fas fa-search fa-sm"></i>
@@ -20,6 +20,7 @@
 			</div>
 		</form>
 	</nav>
+
 }
 
 <div class="card shadow mb-4">
@@ -32,14 +33,14 @@
 						<table class="table table-bordered dataTable" width="100" cellpadding="0" role="grid" style="width: 100%;">
 							<thead>
 								<tr>
-									<th >Ngày tạo</th>
-									<th >Yêu cầu thêm</th>
-									<th >Ngày hẹn</th>
-									<th >Đơn vị</th>
-									<th >Danh mục</th>
-								
-									<th >Lần gửi</th>
-									<th >Tình trạng</th>
+									<th>Ngày tạo</th>
+									<th>Yêu cầu thêm</th>
+									<th>Ngày hẹn</th>
+									<th>Đơn vị</th>
+									<th>Danh mục</th>
+									<th>User</th>
+									<th>Lần gửi</th>
+									<th>Tình trạng</th>
 								</tr>
 							</thead>
 
@@ -47,30 +48,31 @@
 
 								@foreach (var item in Model)
 								{
-								<tr id="row_@item.HocVuID" role="row" class="old">
-									<td>@(item.NgayTao.HasValue ? item.NgayTao.Value.ToString("dd/MM/yyyy hh:mm tt") : "")</td>
-									<td>@item.YeuCauThem</td>
-									<td>@(item.NgayHen.HasValue ? item.NgayHen.Value.ToString("dd/MM/yyyy") : "")</td>
-									<td>@item.TenDonVi</td>
-									<td>@item.TenDanhMuc</td>
-							
-									@if(item.ParentID == 1)
-									{
-										<td> Lần đầu tiên</td>
-									}
-									else
-									{
-										<td> Lần thứ @item.ParentID</td>
-									}
+									<tr id="row_@item.HocVuID" role="row" class="old">
+										<td>@(item.NgayTao.HasValue ? item.NgayTao.Value.ToString("dd/MM/yyyy hh:mm tt") : "")</td>
+										<td>@item.YeuCauThem</td>
+										<td>@(item.NgayHen.HasValue ? item.NgayHen.Value.ToString("dd/MM/yyyy") : "")</td>
+										<td>@item.TenDonVi</td>
+										<td>@item.TenDanhMuc</td>
+										<td>@item.UserName</td>
+										@if (item.ParentID == 1)
+										{
+											<td> Lần đầu tiên</td>
+										}
+										else
+										{
+											<td> Lần thứ @item.ParentID</td>
+										}
 
-									<td>@(item.TinhTrang.GetValueOrDefault(false) ? "Hoàn thành" : "Chưa hoàn thành")</td>
-								</tr>
+										<td>@(item.TinhTrang.GetValueOrDefault(false) ? "Hoàn thành" : "Chưa hoàn thành")</td>
+									</tr>
 								}
 
 							</tbody>
 						</table>
 						@Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = ViewBag.SearchString }))
 					</div>
+
 				</div>
 			</div>
 		</div>

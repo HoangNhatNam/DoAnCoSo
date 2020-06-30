@@ -421,3 +421,6 @@ C:\Users\pc\Desktop\DoAnCoSo\DoAnCoSo\abc\obj\Debug\abc.csproj.CoreCompileInputs
 C:\Users\pc\Desktop\DoAnCoSo\DoAnCoSo\abc\obj\Debug\abc.csproj.CopyComplete
 C:\Users\pc\Desktop\DoAnCoSo\DoAnCoSo\abc\obj\Debug\abc.dll
 C:\Users\pc\Desktop\DoAnCoSo\DoAnCoSo\abc\obj\Debug\abc.pdb
+C:\Users\pc\Desktop\DoAnCoSo\DoAnCoSo\abc\bin\EPPlus.dll
+C:\Users\pc\Desktop\DoAnCoSo\DoAnCoSo\abc\bin\EPPlus.xml
+C:\Users\pc\Desktop\DoAnCoSo\DoAnCoSo\abc\bin\Rotativa.dll

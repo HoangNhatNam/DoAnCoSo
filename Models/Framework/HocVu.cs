@@ -20,7 +20,7 @@
 		[DisplayName("Tình trạng")]
 		public bool TinhTrang { get; set; }
 
-        public int? ParentID { get; set; }
+        public int ParentID { get; set; }
 
         public int? ChuyenVienID { get; set; }
 

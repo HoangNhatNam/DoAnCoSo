@@ -1,0 +1,84 @@
+﻿@model Models.Framework.HocVu
+
+@{
+	ViewBag.Title = "Detai";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+	Chi tiết học vụ
+}
+
+<div>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.NgayTao)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.NgayTao)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.YeuCauThem)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.YeuCauThem)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.TinhTrang)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.TinhTrang)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.ChuyenVienID)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.ChuyenVienID)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.NgayHen)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.NgayHen)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.DanhMucID)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.DanhMucID)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.UserID)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.UserID)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.DonViID)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.DonViID)
+		</dd>
+
+	</dl>
+</div>
+<p>
+	@Html.ActionLink("Edit", "Edit", new { id = Model.HocVuID }) |
+	@Html.ActionLink("Back to List", "Index")
+</p>

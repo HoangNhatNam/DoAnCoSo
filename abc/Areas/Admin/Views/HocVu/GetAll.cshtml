@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Models.Framework.HocVu>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetAll</title>
+</head>
+<body>
+   
+		<a href="@Url.Action("PrintAll","HocVu")">Print</a>
+   
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayTao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YeuCauThem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TinhTrang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParentID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ChuyenVienID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayHen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DanhMucID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DonViID)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayTao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YeuCauThem)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TinhTrang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParentID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChuyenVienID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayHen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DanhMucID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DonViID)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.HocVuID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.HocVuID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.HocVuID })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

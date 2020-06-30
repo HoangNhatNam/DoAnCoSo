@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,8 +27,12 @@ namespace Models.ViewModel
 
 		public int? DonViID { get; set; }
 		public string TenDanhMuc { get; set; }
+
 		public string UserName { get; set; }
 		public string TenDonVi { get; set; }
+
 		public string TenVaiTro { get; set; }
+		
 	}
 }
+
