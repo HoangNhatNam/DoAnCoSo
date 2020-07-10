@@ -87,16 +87,53 @@
 	
 } 
 
-<div class="card shadow mb-4">
-	<div class="card-header py-3">
-		<h6 class="m-0 font-weight-bold text-primary">Bảng thống kê</h6>
-	</div>
-	<div class="card-body">
-		<div class="chart-bar">
-			<canvas id="myBarChart"></canvas>
-		</div>
-	</div>
-</div>
+<style>
+	#chart_container{
+		width:400px;
+		height:400px;
+		border:1px solid #ddd;
+		padding: 1px;
+		border-radius:4px;
+	}
+	#container {
+		width: 400px;
+		height: 400px;
+		border: 1px solid #ddd;
+		padding: 1px;
+		border-radius: 4px;
+	}
+	#bangdanhmuc {
+		width: 800px;
+		height: 400px;
+		border: 1px solid #ddd;
+		padding: 1px;
+		border-radius: 4px;
+	}
+</style>
+<table>
+	<tr>
+		<td>
+			<div id="chart_container">
+				<canvas id="bar_chart"></canvas>
+			</div>
+		</td>
+		<td>
+			<div>
+				<div id="container"></div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th colspan="2">
+			<div id="bangdanhmuc">
+				<canvas id="thongkedanhmuc"></canvas>
+			</div>
+		</th>
+		
+	</tr>
+</table>
+
+
 
 <div class="card shadow mb-4">
 	<div class="card-body">
@@ -150,7 +187,13 @@
 		</div>
 	</div>
 </div>
+<script src="~/Assets/admin/vendor/chart.js/Chart.min.js"></script>
 <script src="~/Scripts/jquery-1.8.0.min.js"></script>
+<link href="~/Assets/admin/css/sb-admin-2.min.css" rel="stylesheet" />
+<script src="~/Assets/admin/js/sb-admin-2.min.js"></script>
+<script src="~/Assets/admin/chart/exporting.js"></script>
+<script src="~/Assets/admin/chart/highcharts.js"></script>
+
 <script>
 	$(document).ready(function () {
 		$("#searchTenDonVi").change(function () {
@@ -161,5 +204,105 @@
 				});
 			});
 		})
+	});
+</script>
+<script>
+	var repArray = @Html.Raw(Json.Encode(ViewBag.REP));
+	var userID = @Html.Raw(Json.Encode(ViewBag.UserID));
+	var ctx = $("#bar_chart");
+	var bacChart = new Chart(ctx,{
+		type: 'bar',
+		data: {
+			labels: userID,
+			datasets: [{
+				label: "Bảng thống kê người dùng",
+				data: repArray,
+				backgroundColor: "rgba(242,166,54,.5)",
+				borderColor: "rgb(242,166,54)",
+				borderWidth:1
+			}]
+		},
+		options: {
+			maintainAspectRatio: false,
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			}
+		}
+	});
+</script>
+<script>
+	var listDanhMuc = @Html.Raw(Json.Encode(ViewBag.listDanhMuc));
+	var danhmucID = @Html.Raw(Json.Encode(ViewBag.danhmucID));
+	var ctx = $("#thongkedanhmuc");
+	var bacChart = new Chart(ctx,{
+		type: 'bar',
+		data: {
+			labels: danhmucID,
+			datasets: [{
+				label: "Bảng thống kê danh mục",
+				data: listDanhMuc,
+				backgroundColor: "rgba(145,65,72,.5)",
+				borderColor: "rgb(145,65,72)",
+				borderWidth:1
+			}]
+		},
+		options: {
+			maintainAspectRatio: false,
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			}
+		}
+	});
+</script>
+<script>
+	$(document).ready(function () {
+		$.getJSON("/Admin/ThongKe/GetData", function (data) {
+			Highcharts.chart('container', {
+				chart: {
+					plotBackgroundColor: null,
+					plotBorderWidth: null,
+					plotShadow: false,
+					type: 'pie'
+				},
+				title: {
+					text: 'Biểu đồ tình trạng'
+				},
+				tooltip: {
+					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+				},
+				plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						dataLabels: {
+							enabled: true,
+							format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+							style: {
+								color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+							}
+						}
+					}
+				},
+				series: [{
+					name: 'Brands',
+					colorByPoint: true,
+					data: [{
+						name: 'Hoàn thành',
+						y: data.HoanThanh
+					}, {
+						name: 'Chưa hoàn thành',
+						y: data.ChuaHoanThanh
+					}]
+				}]
+			});
+		});
 	});
 </script>

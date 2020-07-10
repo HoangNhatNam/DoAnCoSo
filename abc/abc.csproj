@@ -125,6 +125,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\admin\chart\exporting.js" />
+    <Content Include="Assets\admin\chart\highcharts.js" />
     <Content Include="Assets\admin\css\sb-admin-2.css" />
     <Content Include="Assets\admin\css\sb-admin-2.min.css" />
     <Content Include="Assets\admin\img\undraw_posting_photo.svg" />
@@ -1742,6 +1744,8 @@
     <Content Include="Assets\client\assets\mail\jqBootstrapValidation.js" />
     <Content Include="Assets\client\css\styles.css" />
     <Content Include="Assets\client\js\scripts.js" />
+    <Content Include="Content\Chart.css" />
+    <Content Include="Content\Chart.min.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Global.asax" />
     <Content Include="Areas\Admin\Views\DonVi\Index.cshtml" />
@@ -1779,6 +1783,8 @@
     <Content Include="Rotativa\help-wkhtmltopdf.txt" />
     <Content Include="Rotativa\wkhtmltoimage.exe" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\jquery-1.8.0.js" />
     <Content Include="Scripts\jquery-1.8.0.min.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

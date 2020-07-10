@@ -231,7 +231,7 @@ namespace abc.Areas.Admin.Controllers
 			var q = new ActionAsPdf("Index", model);
 			var b = new ViewAsPdf("Index", model);
 			var a = new PartialViewAsPdf("Index", model);
-			return b;
+			return q;
 		}
 	}
 }

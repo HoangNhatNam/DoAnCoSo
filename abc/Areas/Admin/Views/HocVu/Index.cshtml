@@ -115,6 +115,9 @@
 		<div class="container">
 			@NestedData.GetHtml2(Model, 0)
 		</div>
+		<a href="@Url.Action("ExportToExcel","HocVu")">Export Excel</a>
+		|
+		<p> @Html.ActionLink("Print", "PrintAll")</p>
 		@Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = ViewBag.SearchString, @searchUser = ViewBag.searchUser }))
 
 
