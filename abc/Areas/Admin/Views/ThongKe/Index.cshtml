@@ -1,0 +1,165 @@
+﻿@model PagedList.IPagedList<Models.ViewModel.CustomViewThongKe>
+@using PagedList.Mvc;
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+	Thống kê
+}
+
+@using (Html.BeginForm("Index", "ThongKe", FormMethod.Get))
+{
+	<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+		<table>
+			<tbody>
+				<tr>
+					<td>Tên người dùng</td>
+					<td><input type="text" class="form-control small" aria-label="Search" aria-describedby="basic-addon2" name="searchName" value="@ViewBag.searchName"></td>
+					<td>Email</td>
+					<td><input type="text" class="form-control small" aria-label="Search" aria-describedby="basic-addon2" name="searchEmail" value="@ViewBag.searchEmail"></td>
+				</tr>
+				<tr>
+					<td>Đơn vị</td>
+					<td>
+						<div>
+							@Html.DropDownList("searchTenDonVi", new SelectList((IEnumerable<SelectListItem>)ViewBag.listDonVi, "Value", "Text", ViewBag.searchTenDonVi), "Chọn đơn vị", new { @class = "form-control input-group" })
+						</div>
+					</td>
+					<td>Danh Mục</td>
+					<td>
+						<div>
+							@Html.DropDownList("searchTenDanhMuc1", new SelectList(" "), "Chọn danh mục", new { @class = "form-control input-group" })
+						</div>
+					</td>
+
+				</tr>
+				<tr>
+					<td>Lớp</td>
+					<td>
+						<div>
+							@Html.DropDownList("searchTenLop", new SelectList((IEnumerable<SelectListItem>)ViewBag.listLop, "Value", "Text", ViewBag.searchTenLop), "Chọn lớp", new { @class = "form-control input-group" })
+						</div>
+					</td>
+					<td>Vai trò</td>
+					<td>
+						<div>
+							@Html.DropDownList("searchTenVaiTro", new SelectList((IEnumerable<SelectListItem>)ViewBag.listVaiTro, "Value", "Text", ViewBag.searchTenVaiTro), "Chọn vai trò", new { @class = "form-control input-group" })
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>Yêu cầu thêm</td>
+					<td><input type="text" class="form-control small" aria-label="Search" aria-describedby="basic-addon2" name="searchYeuCau" value="@ViewBag.searchYeuCau"></td>
+					<td>Tình trạng</td>
+					<td>
+						<div>
+							@{
+								List<SelectListItem> listItems = new List<SelectListItem>();
+								listItems.Add(new SelectListItem
+								{
+									Text = "Hoàn thành",
+									Value = "True"
+								});
+								listItems.Add(new SelectListItem
+								{
+									Text = "Chưa hoàn thành",
+									Value = "False",
+								});
+							}
+							@Html.DropDownList("searchTinhTrang", listItems, "Tình trạng", new { @class = "form-control input-group" })
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="input-group-append">
+							<button class="btn btn-primary" type="submit" id="submit">
+								<i class="fas fa-search fa-sm"></i>
+							</button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	
+} 
+
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<h6 class="m-0 font-weight-bold text-primary">Bảng thống kê</h6>
+	</div>
+	<div class="card-body">
+		<div class="chart-bar">
+			<canvas id="myBarChart"></canvas>
+		</div>
+	</div>
+</div>
+
+<div class="card shadow mb-4">
+	<div class="card-body">
+		<div class="table-responsive">
+			<div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-bordered dataTable" width="100" cellpadding="0" role="grid" style="width: 100%;" id="myTable">
+							<thead>
+								<tr>
+									<th>Ngày tạo</th>
+									<th>Yêu cầu thêm</th>
+									<th>Ngày hẹn</th>
+									<th>Đơn vị</th>
+									<th>Danh mục</th>
+									<th>User</th>
+									<th>Vai trò</th>
+									<th>Lớp </th>
+									<th>Email </th>
+									<th>Tình trạng</th>
+								</tr>
+							</thead>
+
+							<tbody>
+
+								@foreach (var item in Model)
+								{
+									<tr id="row_@item.HocVuID" role="row" class="old">
+										<td>@(item.NgayTao.HasValue ? item.NgayTao.Value.ToString("dd/MM/yyyy hh:mm tt") : "")</td>
+										<td>@item.YeuCauThem</td>
+										<td>@(item.NgayHen.HasValue ? item.NgayHen.Value.ToString("dd/MM/yyyy") : "")</td>
+										<td>@item.TenDonVi</td>
+										<td>@item.TenDanhMuc</td>
+										<td>@item.UserName</td>
+										<td>@item.TenVaiTro</td>
+										<td>@item.TenLop</td>
+										<td>@item.Email</td>
+										<td>@(item.TinhTrang == true ? "Hoàn thành" : "Chưa hoàn thành")</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+						<a href="@Url.Action("ExportToExcel","HocVu")">Export Excel</a>
+						|
+						<p> @Html.ActionLink("Print", "PrintAll")</p>
+						@Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchTenDonVi = ViewBag.searchTenDonVi }))
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="~/Scripts/jquery-1.8.0.min.js"></script>
+<script>
+	$(document).ready(function () {
+		$("#searchTenDonVi").change(function () {
+			$.get("/Admin/ThongKe/GetDanhMucList", { TenDonVi: $("#searchTenDonVi").children("option").filter(":selected").text() }, function (data) {
+				$("#searchTenDanhMuc").empty();
+				$.each(data, function (index, row) {
+					$("#searchTenDanhMuc").append("<option value='" + row.DanhMucID + "'>" + row.TenDanhMuc + "</option>")
+				});
+			});
+		})
+	});
+</script>

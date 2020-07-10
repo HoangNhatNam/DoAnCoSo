@@ -20,12 +20,15 @@ namespace abc.Areas.Admin.Controllers
 		// GET: Admin/HocVu
 		DoAnDbContext db = new DoAnDbContext();
 		[KiemTraQuyen(PermissionName = "DanhSachHocVu")]
-		public ActionResult Index(string searchString, string searchUser, int page = 1, int pageSize = 10)
+		public ActionResult Index(string searchString, string searchUser, int page = 1, int pageSize = 100)
 		{
 			var dao = new HocVuDao();
 			var model = dao.ListHocVu(searchString, searchUser, page, pageSize);
 			ViewBag.SearchString = searchString;
 			ViewBag.searchUser = searchUser;
+
+			var dao1 = new DonViDao();
+			ViewBag.listDonVi = new SelectList(dao1.ListAll(), "TenDonVi", "TenDonVi");
 			return View(model);
 		}
 		[KiemTraQuyen(PermissionName = "DanhSachHocVu")]
@@ -60,8 +63,7 @@ namespace abc.Areas.Admin.Controllers
 			if (ModelState.IsValid)
 			{
 				var dao = new HocVuDao();
-				
-				int id = dao.Insert(hocvu, a);
+				int id = dao.Insert2(hocvu, a, hocvu.HocVuID);
 				if (id > 0)
 				{
 					SetAlert("Thêm thành công", "success");

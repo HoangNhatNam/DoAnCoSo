@@ -1,5 +1,7 @@
 ﻿@model PagedList.IPagedList<Models.ViewModel.HocVuViewModel>
 @using PagedList.Mvc;
+@using System.Web.Mvc.Html;
+
 @{
 	ViewBag.Title = "Index";
 	Layout = "~/Views/Shared/_Layout.cshtml";
@@ -25,57 +27,66 @@
 
 <div class="card shadow mb-4">
 	<div class="card-body">
-		<div class="table-responsive">
-
-			<div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-				<div class="row">
-					<div class="col-sm-12">
-						<table class="table table-bordered dataTable" width="100" cellpadding="0" role="grid" style="width: 100%;">
-							<thead>
-								<tr>
-									<th>Ngày tạo</th>
-									<th>Yêu cầu thêm</th>
-									<th>Ngày hẹn</th>
-									<th>Đơn vị</th>
-									<th>Danh mục</th>
-									<th>User</th>
-									<th>Lần gửi</th>
-									<th>Tình trạng</th>
-								</tr>
-							</thead>
-
-							<tbody>
-
-								@foreach (var item in Model)
-								{
-									<tr id="row_@item.HocVuID" role="row" class="old">
-										<td>@(item.NgayTao.HasValue ? item.NgayTao.Value.ToString("dd/MM/yyyy hh:mm tt") : "")</td>
-										<td>@item.YeuCauThem</td>
-										<td>@(item.NgayHen.HasValue ? item.NgayHen.Value.ToString("dd/MM/yyyy") : "")</td>
-										<td>@item.TenDonVi</td>
-										<td>@item.TenDanhMuc</td>
-										<td>@item.UserName</td>
-										@if (item.ParentID == 1)
-										{
-											<td> Lần đầu tiên</td>
-										}
-										else
-										{
-											<td> Lần thứ @item.ParentID</td>
-										}
-
-										<td>@(item.TinhTrang.GetValueOrDefault(false) ? "Hoàn thành" : "Chưa hoàn thành")</td>
-									</tr>
-								}
-
-							</tbody>
-						</table>
-						@Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = ViewBag.SearchString }))
+					<div class="container">
+						@NestedData.GetHtml(Model, 0)
 					</div>
+					@Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = ViewBag.SearchString }))
 
+
+					<style>
+						.container {
+							min-width: 500px;
+							overflow: auto;
+						}
+
+						.innerTable table {
+							margin: 0px auto;
+							border-left-width: 4px;
+						}
+
+						td.innerTable {
+							padding-left: 20px !important;
+						}
+
+						.icon {
+							background-image: url('../../Images/ui-icons_222222_256x240.png');
+							background-repeat: no-repeat;
+							width: 16px;
+							height: 16px;
+							display: inline-block;
+							float: left;
+						}
+
+						.icon-e {
+							background-position: -32px -16px
+						}
+
+						.icon-s {
+							background-position: -64px -16px
+						}
+					</style>
 				</div>
 			</div>
-		</div>
-	</div>
-</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script type="text/javascript">
+	if (typeof jQuery.fn.live == 'undefined' || !(jQuery.isFunction(jQuery.fn.live))) {
+		jQuery.fn.extend({
+			live: function (event, callback) {
+				if (this.selector) {
+					jQuery(document).on(event, this.selector, callback);
+				}
+			}
+		});
+	}
+	$(document).ready(function () {
+		$('.icon').click(function () {
+			var $pRow = $(this).parents('tr');
+			var $nextRow = $pRow.next('tr');
+			$nextRow.toggle();
+			$(this).toggleClass('icon-s icon-e');
+		});
+	});
+</script>
+
 
